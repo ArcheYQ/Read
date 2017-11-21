@@ -59,11 +59,11 @@ public class ReadFragment extends BaseFragment {
     private void getCategory() {
         final String host = "http://gank.io/xiandu";
 
-        subscription = (Subscription) Observable.just(host).subscribeOn(Schedulers.io()).map(
+        subscription = Observable.just(host).subscribeOn(Schedulers.io()).map(
                 new Func1<String, List<ReadCategory>>() {
                     @Override
                     public List<ReadCategory> call(String s) {
-                        List<ReadCategory> list = new ArrayList<ReadCategory>();
+                        List<ReadCategory> list = new ArrayList<>();
                         try {
                             Document doc = Jsoup.connect(host).timeout(5000).get();
                             Element cate = doc.select("div#xiandu_cat").first();
@@ -130,6 +130,12 @@ public class ReadFragment extends BaseFragment {
             adapter.addFrag(fragment, category.getName());
         }
         viewPager.setAdapter(adapter);
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (subscription != null && !subscription.isUnsubscribed())
+            subscription.unsubscribe();
     }
 
 }

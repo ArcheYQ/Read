@@ -136,5 +136,10 @@ public class ReadCategoryFragment extends BaseFragment{
         });
 
     }
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (subscription != null && !subscription.isUnsubscribed())
+            subscription.unsubscribe();
+    }
 }

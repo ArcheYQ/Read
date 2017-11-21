@@ -25,9 +25,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @LayoutRes
     int getLayoutId();
 
-    protected abstract
-    @MenuRes
-    int getMenuId();
 
     protected abstract void initViews(Bundle savedInstanceState);
 
@@ -69,14 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (getMenuId() != 0) {
-            getMenuInflater().inflate(getMenuId(), menu);
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
+
     /**
      * 设置主题
      */

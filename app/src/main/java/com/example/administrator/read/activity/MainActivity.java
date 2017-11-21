@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.administrator.read.R;
+import com.example.administrator.read.activity.fragment.ReadFragment;
 import com.example.administrator.read.app.AppGlobal;
 import com.example.administrator.read.util.DoubleClickExit;
 
@@ -27,7 +28,7 @@ public class MainActivity extends BaseActivity {
     private String currentFragmentTag;
 
     private FragmentManager fragmentManager;
-
+    private NavigationView navigationView;
     private static final String FRAGMENT_TAG_PHOTO = "photo";
     private static final String FRAGMENT_TAG_READING = "reading";
 
@@ -37,10 +38,6 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
-    @Override
-    protected int getMenuId() {
-        return 0;
-    }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
@@ -56,7 +53,7 @@ public class MainActivity extends BaseActivity {
     }
     private void initNavigationViewHeader() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.inflateHeaderView(R.layout.drawer_header);
         navigationView.setNavigationItemSelectedListener(new NavigationItemSelected());
     }
@@ -88,10 +85,10 @@ public class MainActivity extends BaseActivity {
         if (foundFragment == null) {
             switch (name) {
                 case FRAGMENT_TAG_PHOTO:
-//                    foundFragment = new PhotoFragment();
+                 foundFragment = new ReadFragment();
                     break;
                 case FRAGMENT_TAG_READING:
-//                    foundFragment = new ReadFragment();
+                    foundFragment = new ReadFragment();
                     break;
             }
         }
@@ -170,20 +167,20 @@ public class MainActivity extends BaseActivity {
             return false;
         }
     }
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
+    @Override
+    protected void onStart() {
+        super.onStart();
 //        if (!EventBus.getDefault().isRegistered(this)) {
 //            EventBus.getDefault().register(this);
 //        }
-//    }
-//
-//    @Override
-//    protected void onDestroy() {
+    }
+
+    @Override
+    protected void onDestroy() {
 //        if (EventBus.getDefault().isRegistered(this))
 //            EventBus.getDefault().unregister(this);
-//        super.onDestroy();
-//    }
+        super.onDestroy();
+    }
 
     @Override
     public void onBackPressed() {
@@ -196,6 +193,11 @@ public class MainActivity extends BaseActivity {
                 super.onBackPressed();
             }
         }
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(AppGlobal.CURRENT_INDEX, currentFragmentTag);
     }
 
 }
