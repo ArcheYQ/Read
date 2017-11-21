@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Read</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="refresh" />
+    <string name="menu_action_refresh">刷新</string>
+    <string name="menu_action_share">分享</string>
+    <string name="menu_action_copy">复制URL</string>
+    <string name="menu_action_openwith">其他方式打开</string>
+
+</resources>
