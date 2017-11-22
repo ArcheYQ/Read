@@ -9,6 +9,7 @@ import android.support.annotation.MenuRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -39,13 +40,19 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.i("TAG","onCreate: "+"mmm0");
         initTheme();
+        Log.i("TAG","onCreate: "+"mm1");
         setContentView(getLayoutId());
+        Log.i("TAG","onCreate: "+"mm2");
         initToolBar();
+        Log.i("TAG","onCreate: "+"mm3");
         initViews(savedInstanceState);
+        Log.i("TAG","onCreate: "+"mm4");
         loadData();
+        Log.i("TAG","onCreate: "+"mm5");
     }
     // 给左上角图标的左边加上一个返回的按钮
     protected void setDisplayHomeAsUpEnabled(boolean enable) {
@@ -72,7 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     private void initTheme(){
         SharedPreferences pf = getSharedPreferences(AppGlobal.FILE_NAME, Context.MODE_PRIVATE);
-        int themeIndex =  pf.getInt("theme",0);
+        int themeIndex =  pf.getInt("theme",1);
         switch (themeIndex){
             case 0:
                 setTheme(R.style.LapisBlueTheme);

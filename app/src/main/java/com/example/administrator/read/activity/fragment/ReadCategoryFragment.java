@@ -54,7 +54,7 @@ public class ReadCategoryFragment extends BaseFragment{
 
     @Override
     protected void lazyFetchData() {
-
+        getDataFromServer();
     }
     /**
      * 设置监听等
