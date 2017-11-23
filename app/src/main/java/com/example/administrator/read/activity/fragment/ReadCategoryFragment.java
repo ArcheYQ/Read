@@ -2,6 +2,7 @@ package com.example.administrator.read.activity.fragment;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.example.administrator.read.R;
 import com.example.administrator.read.adapter.ReadAdapter;
@@ -35,7 +36,7 @@ import rx.schedulers.Schedulers;
 public class ReadCategoryFragment extends BaseFragment{
     private int cutPage = 1;
     private String baseUrl = "";
-
+    private boolean isLoading = false;
     private ReadAdapter adapter;
     private Subscription subscription;
     private FragmentCategoryBinding binding;
@@ -70,7 +71,17 @@ public class ReadCategoryFragment extends BaseFragment{
                 getDataFromServer();
             }
         });
-
+        //底部刷新，判断是否可以继续往下滑动
+        binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (!recyclerView.canScrollVertically(1) && !isLoading) {
+                    isLoading = true;
+                    getDataFromServer();
+                }
+            }
+        });
     }
 
     /**

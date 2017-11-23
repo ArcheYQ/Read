@@ -42,17 +42,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("TAG","onCreate: "+"mmm0");
         initTheme();
-        Log.i("TAG","onCreate: "+"mm1");
+
         setContentView(getLayoutId());
-        Log.i("TAG","onCreate: "+"mm2");
+
         initToolBar();
-        Log.i("TAG","onCreate: "+"mm3");
+
         initViews(savedInstanceState);
-        Log.i("TAG","onCreate: "+"mm4");
+
         loadData();
-        Log.i("TAG","onCreate: "+"mm5");
+
+
+
     }
     // 给左上角图标的左边加上一个返回的按钮
     protected void setDisplayHomeAsUpEnabled(boolean enable) {

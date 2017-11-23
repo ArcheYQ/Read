@@ -100,9 +100,9 @@ public class ReadAdapter extends RecyclerView.Adapter<ReadAdapter.ReadHolder> {
         ReadHolder(View view) {
             super(view);
             rootView = view;
-            tv_name = (TextView) view.findViewById(R.id.tv_read_name);
-            tv_info = (TextView) view.findViewById(R.id.tv_read_info);
-            iv = (ImageView) view.findViewById(R.id.iv_read_icon);
+            tv_name =  view.findViewById(R.id.tv_read_name);
+            tv_info =  view.findViewById(R.id.tv_read_info);
+            iv = view.findViewById(R.id.iv_read_icon);
         }
     }
 }

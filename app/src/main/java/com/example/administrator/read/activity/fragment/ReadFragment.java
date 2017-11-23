@@ -21,6 +21,7 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
 
 import rx.Observer;
 import rx.Observable;
@@ -35,7 +36,6 @@ import rx.schedulers.Schedulers;
 
 public class ReadFragment extends BaseFragment {
     private FragmentReadBinding binding;
-
     private Subscription subscription;
     @Override
     protected int getLayoutId() {
@@ -57,18 +57,24 @@ public class ReadFragment extends BaseFragment {
      * 获取分类
      */
     private void getCategory() {
-        final String host = "http://gank.io/xiandu";
+        final String host = "http://www.meizhuang.com/makeup/";
 
         subscription = Observable.just(host).subscribeOn(Schedulers.io()).map(
                 new Func1<String, List<ReadCategory>>() {
+
                     @Override
                     public List<ReadCategory> call(String s) {
                         List<ReadCategory> list = new ArrayList<>();
+                        Log.d("test","name: ");
                         try {
                             Document doc = Jsoup.connect(host).timeout(5000).get();
-                            Element cate = doc.select("div#xiandu_cat").first();
-                            Elements links = cate.select("a[href]");
-                            for (Element element : links) {
+                            Log.d("test","123"+doc.toString());
+                            Element cate = doc.select("div.li-main").get(1);
+                            Log.d("test","name: "+cate.toString());
+                            Elements links = cate.select("span.hide-nav");
+                            Log.d("test","links: "+cate.toString());
+                            Elements linkss = cate.select("a");
+                            for (Element element : linkss) {
                                 ReadCategory category = new ReadCategory();
                                 category.setName(element.text());
                                 category.setUrl(element.attr("abs:href"));
@@ -81,7 +87,9 @@ public class ReadFragment extends BaseFragment {
                         if (list.size() > 0) {
                             list.get(0).setUrl(host + "/wow");
                         }
+
                         return list;
+
                     }
                 }
         ).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<ReadCategory>>() {
@@ -126,7 +134,7 @@ public class ReadFragment extends BaseFragment {
             Fragment fragment = new ReadCategoryFragment();
             Bundle data = new Bundle();
             data.putString("url",category.getUrl());
-            fragment.setArguments(data);
+            fragment.setArguments(data);//但当我们实例化自定义Fragment时，为什么官方推荐Fragment.setArguments(Bundle bundle)这种方式来传递参数，横屏后数据也不会丢失
             adapter.addFrag(fragment, category.getName());
         }
         viewPager.setAdapter(adapter);
