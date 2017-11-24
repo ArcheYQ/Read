@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.administrator.read.R;
+import com.example.administrator.read.activity.fragment.PhotoFragment;
 import com.example.administrator.read.activity.fragment.ReadFragment;
 import com.example.administrator.read.app.AppGlobal;
 import com.example.administrator.read.util.DoubleClickExit;
@@ -85,7 +86,7 @@ public class MainActivity extends BaseActivity {
         if (foundFragment == null) {
             switch (name) {
                 case FRAGMENT_TAG_PHOTO:
-                 foundFragment = new ReadFragment();
+                 foundFragment = new PhotoFragment();
                     break;
                 case FRAGMENT_TAG_READING:
                     foundFragment = new ReadFragment();

@@ -57,7 +57,7 @@ public class ReadFragment extends BaseFragment {
      * 获取分类
      */
     private void getCategory() {
-        final String host = "http://www.meizhuang.com/makeup/";
+        final String host = "http://gank.io/xiandu";
 
         subscription = Observable.just(host).subscribeOn(Schedulers.io()).map(
                 new Func1<String, List<ReadCategory>>() {
@@ -68,13 +68,9 @@ public class ReadFragment extends BaseFragment {
                         Log.d("test","name: ");
                         try {
                             Document doc = Jsoup.connect(host).timeout(5000).get();
-                            Log.d("test","123"+doc.toString());
-                            Element cate = doc.select("div.li-main").get(1);
-                            Log.d("test","name: "+cate.toString());
-                            Elements links = cate.select("span.hide-nav");
-                            Log.d("test","links: "+cate.toString());
-                            Elements linkss = cate.select("a");
-                            for (Element element : linkss) {
+                            Element cate = doc.select("div#xiandu_cat").first();
+                            Elements links = cate.select("a[href]");
+                            for (Element element : links) {
                                 ReadCategory category = new ReadCategory();
                                 category.setName(element.text());
                                 category.setUrl(element.attr("abs:href"));
