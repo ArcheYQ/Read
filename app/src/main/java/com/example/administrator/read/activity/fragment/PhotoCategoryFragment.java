@@ -1,10 +1,13 @@
 package com.example.administrator.read.activity.fragment;
 
+import android.graphics.Rect;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.View;
 
+import com.example.administrator.read.R;
 import com.example.administrator.read.activity.MainActivity;
 import com.example.administrator.read.adapter.PhotoAdapter;
 import com.example.administrator.read.bean.PhotoItem;
@@ -37,7 +40,7 @@ public class PhotoCategoryFragment extends BaseFragment {
     FragmentPhotoCategoryBinding binding;
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.fragment_photo_category;
     }
 
     @Override
@@ -58,35 +61,35 @@ public class PhotoCategoryFragment extends BaseFragment {
 
 
         final String url =  getArguments().getString("url");
-
+        Log.d("prase", "*****from****"+url);
         subscription = Observable.just(url).subscribeOn(Schedulers.io()).map(new Func1<String, List<PhotoItem>>() {
             @Override
             public List<PhotoItem> call(String s) {
                 List<PhotoItem> photoList = new ArrayList<>();
                 try {
                     Document doc = Jsoup.connect(url).timeout(5000).get();
-                    Element element = doc.select("div#container").get(2);
-//                    Elements items = element.select("div.kboxgrid");
-//                    for (Element ele : items) {
-//                        PhotoItem item = new PhotoItem();
-//
-//                        Element content = ele.select("div.boxgrid").first();
-//                        Element info = ele.select("div.citemqt").first();
-//
-//                        String name = info.select("a").first().text();
-//                        String imgUrl = content.select("img").first().attr("src");
-//                        String from =content.select("a").first().attr("href");
-//                        String date =info.select("a").last().text();
+                    Element element = doc.select("div.wrap").last();
+                    Elements items = element.select("div.kboxgrid");
+                    for (Element ele : items) {
+                        PhotoItem item = new PhotoItem();
 
-                        Log.d("prase", "*****from****"+element.toString());
-//                        Log.d("prase", "*****date****" +date);
-//                        item.setName(name);
-//                        item.setImg(imgUrl);
-//                        item.setFrom(from);
-//                        item.setDate(date);
+                        Element content = ele.select("div.boxgrid").first();
+                        Element info = ele.select("div.citemqt").first();
 
-//                        photoList.add(item);
-//                    }
+                        String name = info.select("a").first().text();
+                        String imgUrl = content.select("img").first().attr("src");
+                        String from =content.select("a").first().attr("href");
+                        String date =info.select("a").last().text();
+
+                        Log.d("prase", "*****from****"+from);
+                        Log.d("prase", "*****date****" +date);
+                        item.setName(name);
+                        item.setImg(imgUrl);
+                        item.setFrom(from);
+                        item.setDate(date);
+
+                        photoList.add(item);
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -143,6 +146,15 @@ public class PhotoCategoryFragment extends BaseFragment {
 
         public SpacesItemDecoration(int space) {
             this.space = space;
+        }
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            outRect.left = space;
+            outRect.right = space;
+            outRect.bottom = space;
+            if (parent.getChildAdapterPosition(view) == 0) {
+                outRect.top = space;
+            }
         }}
     /**
      * 在Fragment销毁，把所有任务销毁掉

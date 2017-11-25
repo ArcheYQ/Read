@@ -31,8 +31,8 @@ public class PhotoFragment extends BaseFragment{
     @Override
     protected void initViews() {
         binding = (FragmentPhotoBinding) getBinding();
-        binding.toolbar.setTitle("图片");
-        ((MainActivity) getActivity()).initDrawer(binding.toolbar);
+        binding.toolbar1.setTitle("图片");
+        ((MainActivity) getActivity()).initDrawer(binding.toolbar1);
         initCategorys();
     }
 
@@ -44,11 +44,11 @@ public class PhotoFragment extends BaseFragment{
      * 初始化TabLayout
      */
     public void initTabLayout(List<PhotoCategory> photoCategories) {
-        setUpViewPager(binding.viewPager, photoCategories);
-        binding.viewPager.setOffscreenPageLimit(binding.viewPager.getAdapter().getCount());
+        setUpViewPager(binding.viewPager1, photoCategories);
+        binding.viewPager1.setOffscreenPageLimit(binding.viewPager1.getAdapter().getCount());
         binding.tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.white));
-        binding.tabLayout.setupWithViewPager(binding.viewPager);
-        binding.tabLayout.setTabMode(TabLayout.GRAVITY_CENTER);
+        binding.tabLayout.setupWithViewPager(binding.viewPager1);
+        binding.tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
     /**
      * 设置ViewPager
@@ -72,13 +72,10 @@ public class PhotoFragment extends BaseFragment{
     }
     public void initCategorys(){
 
-        photoCategories.add(new PhotoCategory("狗狗","http://www.tooopen.com/img/89_321.aspx"));
-        photoCategories.add(new PhotoCategory("猫咪","http://www.tooopen.com/img/89_869.aspx"));
-        photoCategories.add(new PhotoCategory("兔子","http://www.tooopen.com/img/89_870.aspx"));
-        photoCategories.add(new PhotoCategory("鸽子","http://www.tooopen.com/img/89_871.aspx"));
-        photoCategories.add(new PhotoCategory("骏马","http://www.tooopen.com/img/89_872.aspx"));
-        photoCategories.add(new PhotoCategory("老虎","http://www.tooopen.com/img/89_873.aspx"));
-        photoCategories.add(new PhotoCategory("大熊猫","http://www.tooopen.com/img/89_874.aspx"));
+        photoCategories.add(new PhotoCategory("摄影世界o(*￣▽￣*)ブ","http://www.egouz.com/pics/icon/"));
+        photoCategories.add(new PhotoCategory("插画设计(●'◡'●)","http://www.egouz.com/pics/vector/"));
+        photoCategories.add(new PhotoCategory("桌面壁纸( ▼-▼ )","http://www.egouz.com/pics/wallpaper/"));
+        photoCategories.add(new PhotoCategory("艺术人生(￣o￣) . z Z","http://www.egouz.com/pics/pattern/"));
 
     }
 }
