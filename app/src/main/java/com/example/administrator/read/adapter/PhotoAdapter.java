@@ -2,6 +2,8 @@ package com.example.administrator.read.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.read.R;
+import com.example.administrator.read.activity.PhotoDetailActivity;
 import com.example.administrator.read.bean.PhotoItem;
 
 import java.util.ArrayList;
@@ -67,7 +70,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     }
 
     @Override
-    public void onBindViewHolder(PhotoViewHolder holder, int position) {
+    public void onBindViewHolder(PhotoViewHolder holder, final int position) {
         holder.name.setText(photoItems.get(position).getName());
         holder.date.setText(photoItems.get(position).getDate());
 
@@ -79,8 +82,9 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         holder.iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = PicDetailActivity.newIntent(mContext, photoItems.get(position).getImg(), "");
-//                mContext.startActivity(intent);
+                Intent intent = new Intent(mContext,PhotoDetailActivity.class);
+                intent.putExtra("ImageUrl",photoItems.get(position).getImg());
+                mContext.startActivity(intent);
             }
         });
 
