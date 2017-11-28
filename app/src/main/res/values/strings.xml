@@ -1,10 +1,27 @@
 <resources>
-    <string name="app_name">Read</string>
+    <string name="app_name">学习爱我</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="refresh" />
     <string name="menu_action_refresh">刷新</string>
     <string name="menu_action_share">分享</string>
     <string name="menu_action_copy">复制URL</string>
     <string name="menu_action_openwith">其他方式打开</string>
-
+    <string-array name="color_name">
+        <item>青石色</item>
+        <item>山茱萸</item>
+        <item>绿篱</item>
+        <item>樱草黄</item>
+        <item>烈焰红</item>
+        <item>天堂岛</item>
+        <item>甘蓝</item>
+        <item>粉蓍草</item>
+        <item>尼亚加拉</item>
+    </string-array>
+    <string name="theme">主题</string>
+    <string name="done">确定</string>
+    <string name="cancel">取消</string>
+    <string name="open_source">• 生活再糟糕\n• 我也依旧可爱\n• www.egouz.com网站的图片\n• 『Gank』『煎蛋』『妹子图』提供妹纸数据\n• 学习项目地址: \nhttps://github.com/li-yu/FakeWeather/blob/master/README.md\nhttps://github.com/hutcwp/LifeUtil
+    </string>
+    <string name="contact_me">• @Arche\n• 951342519@qq.com
+    </string>
 </resources>

@@ -1,4 +1,5 @@
 package com.example.administrator.read.activity;
+import android.content.Intent;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,7 +23,11 @@ import com.example.administrator.read.R;
 import com.example.administrator.read.activity.fragment.PhotoFragment;
 import com.example.administrator.read.activity.fragment.ReadFragment;
 import com.example.administrator.read.app.AppGlobal;
+import com.example.administrator.read.bean.ThemeChangedEvent;
 import com.example.administrator.read.util.DoubleClickExit;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class MainActivity extends BaseActivity {
     private DrawerLayout mDrawerLayout;
@@ -64,7 +69,11 @@ public class MainActivity extends BaseActivity {
         if (savedInstanceState == null) {
             switchContent(FRAGMENT_TAG_READING);
         } else {
-            currentFragmentTag = savedInstanceState.getString(AppGlobal.CURRENT_INDEX);
+            if(savedInstanceState.getString(AppGlobal.CURRENT_INDEX).isEmpty()){
+                savedInstanceState.putString(AppGlobal.CURRENT_INDEX,FRAGMENT_TAG_READING);
+            }else{
+                currentFragmentTag = savedInstanceState.getString(AppGlobal.CURRENT_INDEX);
+            }
             switchContent(currentFragmentTag);
         }
     }
@@ -160,10 +169,11 @@ public class MainActivity extends BaseActivity {
                     break;
                 case R.id.navigation_setting:
                     menuItem.setChecked(true);
-//                    SettingActivity.createActivity(MainActivity.this);
+                    SettingActivity.createActivity(MainActivity.this);
+                    menuItem.setChecked(false);
                     break;
                 case R.id.navigation_about:
-//                    startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                    startActivity(new Intent(MainActivity.this, AboutActivity.class));
                     break;
             }
             mDrawerLayout.closeDrawer(Gravity.START);
@@ -173,15 +183,22 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        if (!EventBus.getDefault().isRegistered(this)) {
-//            EventBus.getDefault().register(this);
-//        }
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Subscribe
+    public void onMessageEvent(ThemeChangedEvent event) {
+
+        Log.d("event", "msg");
+        this.recreate();
     }
 
     @Override
     protected void onDestroy() {
-//        if (EventBus.getDefault().isRegistered(this))
-//            EventBus.getDefault().unregister(this);
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
