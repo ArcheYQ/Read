@@ -6,15 +6,11 @@
     <group
         android:checkableBehavior="single">
 
-        <item
-            android:id="@+id/navigation_item_2"
-            android:icon="@drawable/ic_weather"
-            android:checked="true"
-            android:title="天气" />
 
         <item
             android:id="@+id/navigation_read"
             android:icon="@drawable/ic_reading"
+            android:checked="true"
             android:title="闲读" />
 
         <item
